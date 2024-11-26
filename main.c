@@ -11,23 +11,38 @@ int main() {
   if(p1 < 0){
     perror("fork fail");
     exit(1);
-  } else if ( p1 == 0){
+  }
+  else if ( p1 == 0){
       // printf("Hello from Child 1!\n");
       int pid = getpid();
       srand(pid);
-      printf("%d %dsec\n", pid, rand() % 5 + 1);
-  }else{
+      int time = rand() % 5 + 1;
+      printf("%d %d sec\n", pid, time);
+      sleep(time);
+      printf("%d finished after %d sec\n", pid, time);
+  }
+  else{
       // printf("Hello from Parent of child 1!\n");
       p2 = fork();
+      int *status;
+      pid_t child = wait(status);
+      printf("child %d\n", child);
+	  printf("Main Process %d is done\n", getpid());
+      // printf("Main Process %d is done. Child %d slept for %d sec\n", getpid(), *status, -1);
       if(p2 < 0){
         perror("fork fail");
         exit(1);
-      } else if ( p2 == 0){
-          // printf("Hello from Child 2!\n");
+      }
+      else if ( p2 == 0){
+         // printf("Hello from Child 2!\n");
           int pid = getpid();
           srand(pid);
-          printf("%d %dsec\n", pid, rand() % 5 + 1);
-      }else{
+	  	  int time = rand() % 5 + 1;
+          printf("%d %d sec\n", pid, time);
+	  	  sleep(time);
+	  	  printf("%d finished after %d sec\n", pid, time);
+      }
+      else{
           // printf("Hello from Parent of child 2!\n");
       }
   }
