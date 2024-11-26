@@ -13,7 +13,9 @@ int main() {
     exit(1);
   } else if ( p1 == 0){
       // printf("Hello from Child 1!\n");
-      printf("%d\n", getpid());
+      int pid = getpid();
+      srand(pid);
+      printf("%d %dsec\n", pid, rand() % 5 + 1);
   }else{
       // printf("Hello from Parent of child 1!\n");
       p2 = fork();
@@ -22,7 +24,9 @@ int main() {
         exit(1);
       } else if ( p2 == 0){
           // printf("Hello from Child 2!\n");
-          printf("%d\n", getpid());
+          int pid = getpid();
+          srand(pid);
+          printf("%d %dsec\n", pid, rand() % 5 + 1);
       }else{
           // printf("Hello from Parent of child 2!\n");
       }
